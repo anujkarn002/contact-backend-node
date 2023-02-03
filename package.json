@@ -38,6 +38,7 @@
     "@types/express-serve-static-core": "^4.17.33",
     "@types/gravatar": "^1.8.0",
     "@types/jsonwebtoken": "^8.3.2",
+    "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.5.0",
     "@types/node": "^18.11.18",
     "concurrently": "^7.6.0",
