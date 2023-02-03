@@ -1,6 +1,6 @@
-import bodyParser from "body-parser";
 import express from "express";
-import cors from "cors";
+import bodyParser from "body-parser";
+import cors, { CorsOptions } from "cors";
 
 import connectDB from "../config/database";
 import auth from "./routes/api/auth";
@@ -14,7 +14,17 @@ const app = express();
 connectDB();
 
 // CORS
-app.use(cors());
+const whitelistOrigins = ["http://localhost", "https://vercel.app"];
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    if (whitelistOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+app.use(cors(corsOptions));
 
 // Express configuration
 app.set("port", process.env.PORT || 5000);
@@ -25,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // @desc    Test Base API
 // @access  Public
 app.get("/", (_req, res) => {
-  res.send("API Running");
+  res.send("OK");
 });
 
 app.use("/api/auth", auth);
